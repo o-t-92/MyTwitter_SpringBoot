@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Main page</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+<th:block th:replace="common :: logoutForm"/>
+
+<div><a href="/user">User list</a></div>
+
+<form method="post" action="/main" enctype="multipart/form-data">
+    <input type="text" name="text" placeholder="Введите сообщение">
+    <input type="text" name="tag" placeholder="Тэг">
+    <input type="file" name="file">
+    <th:block th:replace="common :: hiddenCsrf"/>
+    <button type="submit">Добавить</button>
+</form>
+
+<form method="get" action="/main">
+    <label>Тэг: <input type="text" name="filter" th:value="${filter}"></label>
+    <button type="submit">Найти</button>
+</form>
+
+<div>Список сообщений</div>
+<div th:unless="${messages.empty}">
+    <div th:each="message : ${messages}">
+        <b th:text="${message.id}"></b>
+        <span th:text="${message.text}"></span>
+        <i th:text="${message.tag}"></i>
+        <b th:text="${message.authorName}"></b>
+        <div th:if="${message.fileName}">
+            <img th:src="@{/img/} + ${message.fileName}">
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>

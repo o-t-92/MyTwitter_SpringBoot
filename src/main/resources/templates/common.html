@@ -1,0 +1,21 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+
+<input th:fragment="hiddenCsrf" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+
+<form th:fragment="loginForm(action)" th:action="${action}" method="post">
+    <div><label> User Name : <input type="text" name="username"/> </label></div>
+    <div><label> Password: <input type="password" name="password"/> </label></div>
+    <th:block th:replace="common :: hiddenCsrf"/>
+    <div><input type="submit" value="Sign In"/></div>
+</form>
+
+<form th:fragment="logoutForm" action="/logout" method="post">
+    <th:block th:replace="common :: hiddenCsrf"/>
+    <button type="submit">Sign out</button>
+</form>
+
+</body>
+
+</html>
