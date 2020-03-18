@@ -25,9 +25,9 @@ public class MainController {
     @Value("${upload.path}")
     private String uploadPath;
 
-    @GetMapping
-    public String greeting() {
-        return "redirect:/main";
+    @GetMapping("/")
+    public String greeting(Model model) {
+        return "greeting";
     }
 
     @GetMapping("/main")
